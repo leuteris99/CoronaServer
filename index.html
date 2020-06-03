@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <title>COVID-19 International Info</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+</head>
+<body>
+	<header id="header">
+		<div class="container">
+			<h1>Info About Coronavirus</h1>
+		</div>
+	</header>
+	
+	<nav id="nav>
+		<div class="container">
+			<ul>
+				<li><a href="#">Top 5 Countries (Cases)</a></li>
+				<li><a href="#">Top 5 Countries (Deaths)</a></li>
+			</ul>
+		</div>
+	</nav>
+	
+	<!-- Placeholder chart-->
+	<canvas id="myChart" width="400" height="400"></canvas>
+	<script>
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+			datasets: [{
+				label: '# of Votes',
+				data: [12, 19, 3, 5, 2, 3],
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(255, 159, 64, 0.2)'
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			}
+		}
+	});
+	</script>
+	
+	<section id="chart-op">
+		<div class="container">
+			<ul>
+				<li>Search by:</li>
+				<li>
+					<select name="continent">
+						<option value="allContinents">All Continents</option>
+					</select>
+				</li>
+				<li>
+					<select name="country">
+						<option value="allCountries">All Countries</option>
+					</select>
+				</li>
+			</ul>
+		</div>
+	</section>
+	
+	<section id="compare">
+		<div class=container>
+			<button>Compare Mode Off</button>
+		</div>
+	</section>
+</body>
+</html>
+
