@@ -3,6 +3,40 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.container{
+	overflow:hidden;
+}
+
+#header{
+	text-align:center;
+	padding-bottom: 20px;
+}
+
+#nav ul{
+	padding:0;
+	list-style:none;
+}
+
+nav li{
+	display:inline;
+}
+
+nav a{
+	
+}
+
+#chart-op ul{
+	padding:0;
+	list-style:none;
+}
+#chart-op li{
+	display:inline;
+}
+
+#compare{
+	text-align:center;
+}
+
 a {
   color: #00B7FF;
 }
