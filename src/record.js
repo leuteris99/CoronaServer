@@ -41,6 +41,34 @@ class Record {
         return this.#year;
     }
 
+    get cases() {
+        return this.#cases;
+    }
+
+    get deaths() {
+        return this.#deaths;
+    }
+
+    get countriesAndTerritories() {
+        return this.#countriesAndTerritories;
+    }
+
+    get geoId() {
+        return this.#geoId;
+    }
+
+    get countryterritoryCode() {
+        return this.#countryterritoryCode;
+    }
+
+    get popData2018() {
+        return this.#popData2018;
+    }
+
+    get continentExp() {
+        return this.#continentExp;
+    }
+
     toJSON() {
         return {dateRep: this.dateRep, day: this.day, month: this.month, year: this.year, cases: this.cases, deaths: this.deaths, countriesAndTerritories: this.countriesAndTerritories, geoId: this.geoId, countryterritoryCode: this.countryterritoryCode, popData2018: this.popData2018, continentExp: this.continentExp};
     }
