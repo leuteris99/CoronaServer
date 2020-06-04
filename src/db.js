@@ -103,8 +103,8 @@ module.exports = {
             callback(array);
         });
     },
-    getCasesNumberPerTime: function (db, startDate, endDate, callback) {
-        const sql = "select cases, day, month ,year , countriesAndTerritories from record where  day<= ? and day >= ? and month <= ? and month>= ? and year <= ? and year >= ?";
+    getCasesNumberPerTime: function (db, startDate, endDate, country, callback) {
+        const sql = "select cases, day, month ,year, dateRep from record where  day<= ? and day >= ? and month <= ? and month>= ? and year <= ? and year >= ? and countriesAndTerritories == ?";
         const array = [];
         let i = 0;
         console.log(startDate);
@@ -116,7 +116,7 @@ module.exports = {
         let emonth = erep.slice(5, 7);
         let eday = erep.slice(8, 10);
         let eyear = erep.slice(0, 4);
-        db.all(sql, [eday, sday, emonth, smonth, eyear, syear], (err, rows) => {
+        db.all(sql, [eday, sday, emonth, smonth, eyear, syear, country], (err, rows) => {
             if (err) {
                 throw err;
             }
@@ -127,7 +127,7 @@ module.exports = {
                     day: row.day,
                     month: row.month,
                     year: row.year,
-                    countriesAndTerritories: row.countriesAndTerritories
+                    dateRep: row.dateRep
                 };
             });
             callback(array);

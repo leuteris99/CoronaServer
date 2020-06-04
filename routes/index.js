@@ -13,4 +13,8 @@ router.get('/cases-number-per-country', function (request, resource) {
     resource.sendFile(path.join(curr,'/public/cases-number-per-country.html'));
 });
 
+router.get('/cases-number-per-time', function (request,resource) {
+    resource.sendFile(path.join(curr,'/public/cases-number-per-time.html'));
+});
+
 module.exports = router;

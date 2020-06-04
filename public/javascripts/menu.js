@@ -37,21 +37,38 @@ function ch2() {
     x.appendChild(document.createTextNode('Pick a date:'));
     document.body.appendChild(x);
 
-    const a = addForm('/db/cases-number-per-time', 'post');
-    const b = addInput('date', 'startDate');
-    const c = addInput('date', 'endDate');
-    const d = addInput('submit', 'done');
+    let request = new XMLHttpRequest();
+    request.open('GET', '/db/get-countries');
+    request.responseType = 'text';
+    request.onload = function () {
+        const jsonData = JSON.parse(request.response);
+        let data = [];
+        let i = 0;
+        jsonData.forEach(element => {
+            data[i++] = element['countriesAndTerritories'];
+        });
+        const a = addForm('/db/cases-number-per-time', 'post');
+        const b = addInput('date', 'startDate');
+        const c = addInput('date', 'endDate');
+        const d = addInput('submit', 'done');
+        const e = addDropDown('country', data);
 
-    a.appendChild(addLabel("from:"))
-    a.appendChild(goNextLine());
-    a.appendChild(b);
-    a.appendChild(goNextLine());
-    a.appendChild(addLabel("to:"))
-    a.appendChild(goNextLine());
-    a.appendChild(c);
-    a.appendChild(goNextLine());
-    a.appendChild(d);
-    document.body.appendChild(a);
+        a.appendChild(addLabel('Select Country:'));
+        a.appendChild(goNextLine());
+        a.appendChild(e);
+        a.appendChild(goNextLine());
+        a.appendChild(addLabel("from:"))
+        a.appendChild(goNextLine());
+        a.appendChild(b);
+        a.appendChild(goNextLine());
+        a.appendChild(addLabel("to:"))
+        a.appendChild(goNextLine());
+        a.appendChild(c);
+        a.appendChild(goNextLine());
+        a.appendChild(d);
+        document.body.appendChild(a);
+    };
+    request.send();
 }
 
 function ch3() {
