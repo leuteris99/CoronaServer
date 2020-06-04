@@ -54,12 +54,12 @@ module.exports = {
 
                 const recordsCount = Object.keys(jsonData["records"]).length;
                 // console.log(jsonData['records']);
-                for(let i = 0; i < recordsCount; i++){
+                for (let i = 0; i < recordsCount; i++) {
                     db.run("insert into record values (?,?,?,?,?,?,?,?,?,?,?)",
-                        [jsonData['records'][i]['dateRep'],jsonData['records'][i]['day'],jsonData['records'][i]['month'],jsonData['records'][i]['year'],jsonData['records'][i]['cases'],jsonData['records'][i]['deaths'],
-                            jsonData['records'][i]['countriesAndTerritories'],jsonData['records'][i]['geoId'],jsonData['records'][i]['countryterritoryCode'],
-                            jsonData['records'][i]['popData2018'],jsonData['records'][i]['continentExp']],(err)=>{
-                            if (err){
+                        [jsonData['records'][i]['dateRep'], jsonData['records'][i]['day'], jsonData['records'][i]['month'], jsonData['records'][i]['year'], jsonData['records'][i]['cases'], jsonData['records'][i]['deaths'],
+                            jsonData['records'][i]['countriesAndTerritories'], jsonData['records'][i]['geoId'], jsonData['records'][i]['countryterritoryCode'],
+                            jsonData['records'][i]['popData2018'], jsonData['records'][i]['continentExp']], (err) => {
+                            if (err) {
                                 return console.error(err.message);
                             }
                         });
@@ -73,6 +73,50 @@ module.exports = {
                 });
             });
 
+        });
+    },
+    getCasesNumberPerCountry: function (db, country, callback) {
+        const sql = "select cases, dateRep from record where countriesAndTerritories == ?";
+        const array = [];
+        let i = 0;
+        db.all(sql, [country], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach(row => {
+                array[i++] = {cases: row.cases, dateRep: row.dateRep};
+            });
+            callback(array);
+        });
+    },
+    getCasesNumberPerTime: function (db, startDate, endDate, callback) {
+        const sql = "select cases, day, month ,year , countriesAndTerritories from record where  day<= ? and day >= ? and month <= ? and month>= ? and year <= ? and year >= ?";
+        const array = [];
+        let i = 0;
+        console.log(startDate);
+        let srep = startDate;
+        let smonth = srep.slice(5, 7);
+        let sday = srep.slice(8, 10);
+        let syear = srep.slice(0, 4);
+        let erep = endDate;
+        let emonth = erep.slice(5, 7);
+        let eday = erep.slice(8, 10);
+        let eyear = erep.slice(0, 4);
+        db.all(sql, [eday, sday, emonth, smonth, eyear, syear], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach(row => {
+
+                array[i++] = {
+                    cases: row.cases,
+                    day: row.day,
+                    month: row.month,
+                    year: row.year,
+                    countriesAndTerritories: row.countriesAndTerritories
+                };
+            });
+            callback(array);
         });
     },
     closeConnection: function (db) {
