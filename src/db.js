@@ -75,6 +75,20 @@ module.exports = {
 
         });
     },
+    getCountries: function (db, callback) {
+        const sql = "select distinct countriesANdTerritories from record";
+        const array = [];
+        let i = 0;
+        db.all(sql, (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach(row => {
+                array[i++] = {countriesAndTerritories: row.countriesAndTerritories};
+            })
+            callback(array);
+        });
+    },
     getCasesNumberPerCountry: function (db, country, callback) {
         const sql = "select cases, dateRep from record where countriesAndTerritories == ?";
         const array = [];

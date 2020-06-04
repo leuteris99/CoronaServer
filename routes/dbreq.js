@@ -12,6 +12,14 @@ router.post("/", function (req, res) {
     res.send(req.body);
 });
 
+router.get('/get-countries', function (request,resource) {
+    function fetch(array) {
+        resource.send(array);
+    }
+
+    dbQueries.getCountries(db,fetch);
+})
+
 router.post("/cases-number-per-country", function (request, resource) {
     const country = request.body.country;
 

@@ -7,13 +7,25 @@ function ch1() {
     x.appendChild(document.createTextNode('Pick a Country:'));
     document.body.appendChild(x);
 
-    const a = addForm('/db/cases-number-per-country','post');
-    const b = addDropDown('country',['Greece','Spain','Italy']);
-    const c = addInput('submit','done');
+    let request = new XMLHttpRequest();
+    request.open('GET', "/db/get-countries");
+    request.responseType = 'text';
+    request.onload = function () {
+        const jsonData = JSON.parse(request.response);
+        let data = [];
+        let i = 0;
+        jsonData.forEach(element => {
+            data[i++] = element['countriesAndTerritories'];
+        });
+        const a = addForm('/db/cases-number-per-country', 'post');
+        const b = addDropDown('country', data);
+        const c = addInput('submit', 'done');
 
-    a.appendChild(b);
-    a.appendChild(c);
-    document.body.appendChild(a);
+        a.appendChild(b);
+        a.appendChild(c);
+        document.body.appendChild(a);
+    };
+    request.send();
 }
 
 function ch2() {
@@ -25,10 +37,10 @@ function ch2() {
     x.appendChild(document.createTextNode('Pick a date:'));
     document.body.appendChild(x);
 
-    const a = addForm('/db/cases-number-per-time','post');
-    const b = addInput('date','startDate');
-    const c = addInput('date','endDate');
-    const d = addInput('submit','done');
+    const a = addForm('/db/cases-number-per-time', 'post');
+    const b = addInput('date', 'startDate');
+    const c = addInput('date', 'endDate');
+    const d = addInput('submit', 'done');
 
     a.appendChild(addLabel("from:"))
     a.appendChild(goNextLine());
@@ -51,10 +63,10 @@ function ch3() {
     x.appendChild(document.createTextNode('Pick a Date:'));
     document.body.appendChild(x);
 
-    const a = addForm('/db','post');
-    const b = addInput('date','start date');
-    const c = addInput('date','end date');
-    const d = addInput('submit','done');
+    const a = addForm('/db', 'post');
+    const b = addInput('date', 'start date');
+    const c = addInput('date', 'end date');
+    const d = addInput('submit', 'done');
 
     a.appendChild(addLabel("from:"))
     a.appendChild(goNextLine());
@@ -68,57 +80,58 @@ function ch3() {
     document.body.appendChild(a);
 }
 
-function addForm(action,method) {
+function addForm(action, method) {
     const x = document.createElement('form');
-    x.setAttribute('action',action);
-    x.setAttribute('method',method)
+    x.setAttribute('action', action);
+    x.setAttribute('method', method)
     x.className = 'result';
     return x;
 }
 
 function addInput(type, name) {
     const x = document.createElement('input');
-    x.setAttribute('type',type);
+    x.setAttribute('type', type);
     x.setAttribute('name', name);
     x.className = 'result';
     return x;
 }
 
 function addLabel(text) {
- const x = document.createElement('label');
- x.className = 'result';
- x.appendChild(document.createTextNode(text));
- return x;
+    const x = document.createElement('label');
+    x.className = 'result';
+    x.appendChild(document.createTextNode(text));
+    return x;
 }
 
 function goNextLine() {
     return document.createElement('br');
 }
 
-function addDropDown(name,optionArray) {
+function addDropDown(name, optionArray) {
     const a = document.createElement('select');
-    a.setAttribute('name',name);
+    a.setAttribute('name', name);
     a.className = 'result';
 
     const b = document.createElement('option');
-    b.setAttribute('value','null');
+    b.setAttribute('value', 'null');
     b.className = 'result';
     b.appendChild(document.createTextNode('--select-a-country--'));
     a.appendChild(b);
 
     optionArray.forEach(element => {
         const x = document.createElement('option');
-        x.setAttribute('value',element);
+        x.setAttribute('value', element);
         x.className = 'result';
         x.appendChild(document.createTextNode(element));
         a.appendChild(x);
     });
     return a;
 }
+
 function rmTrash() {
     const y = document.getElementsByClassName("result");
     console.log(y.length);
-    for(let i=y.length-1;i>=0;i--){
+    for (let i = y.length - 1; i >= 0; i--) {
         y.item(i).remove();
     }
 }
