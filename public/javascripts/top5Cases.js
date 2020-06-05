@@ -28,13 +28,13 @@ function createChart(data) {
     // rendering the chart
     var ctx = document.getElementById('chart').getContext('2d');
     var mychart = new Chart(ctx, {
-        type: 'bar',
+        type: 'polarArea',
         data: {
             labels: country,
             datasets: [{
                 label: '# Top 5 ',
                 data: cases,
-                backgoundColor: [
+                backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(99,161,255,0.2)',
                     'rgba(133,255,99,0.2)',

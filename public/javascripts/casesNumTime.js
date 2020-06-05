@@ -28,7 +28,6 @@ function createChart(data, country) {
     data.forEach(element => {
         deaths[i++] = element['deaths'];
     });
-
     // rendering the chart
     var ctx = document.getElementById('chart').getContext('2d');
     var mychart = new Chart(ctx, {
