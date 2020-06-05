@@ -156,7 +156,19 @@ module.exports = {
             callback(array);
         });
     },
-    getContinents: function (db,startDate,endDate,callback){
+    getCasesByPopulation: function (db, country, callback) {
+        const sql = "select sum(cases) cases, popData2018 from record where countriesAndTerritories == ?";
+        const array = [];
+        db.get(sql, [country], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            array[0] = {cases: rows.cases, popData2018: rows.popData2018};
+            console.log(array);
+            callback(array);
+        });
+    },
+    getContinents: function (db, startDate, endDate, callback) {
         const sql = "select continentExp, sum(cases) cases, sum(deaths) deaths from record where  day<= ? and day >= ? and month <= ? and month>= ? and year <= ? and year >= ? group by continentExp order by continentExp";
         const array = [];
         let i = 0;
@@ -168,11 +180,11 @@ module.exports = {
         let emonth = erep.slice(5, 7);
         let eday = erep.slice(8, 10);
         let eyear = erep.slice(0, 4);
-        db.all(sql,[eday,sday,emonth,smonth,eyear,syear],(err,rows)=>{
-            if (err){
+        db.all(sql, [eday, sday, emonth, smonth, eyear, syear], (err, rows) => {
+            if (err) {
                 throw err;
             }
-            rows.forEach(row =>{
+            rows.forEach(row => {
                 array[i++] = {
                     continentExp: row.continentExp,
                     cases: row.cases,

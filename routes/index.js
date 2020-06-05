@@ -21,6 +21,10 @@ router.get('/top-5-cases', function (request, resource) {
     resource.sendFile(path.join(curr, '/public/top5Cases.html'));
 });
 
+router.get('/cases-by-population', function (request, resource) {
+    resource.sendFile(path.join(curr, '/public/cases-by-population.html'));
+});
+
 router.get('/continents', function (request, resource) {
     resource.sendFile(path.join(curr, '/public/continents.html'));
 });

@@ -97,11 +97,41 @@ function ch3() {
     document.body.appendChild(a);
 }
 
+function ch4(){
+    rmTrash();
+
+    const x = document.createElement('p');
+    x.id = "cbp";
+    x.className = "result";
+    x.appendChild(document.createTextNode('Pick a Country:'));
+    document.body.appendChild(x);
+
+    let request = new XMLHttpRequest();
+    request.open('GET', "/db/get-countries");
+    request.responseType = 'text';
+    request.onload = function () {
+        const jsonData = JSON.parse(request.response);
+        let data = [];
+        let i = 0;
+        jsonData.forEach(element => {
+            data[i++] = element['countriesAndTerritories'];
+        });
+        const a = addForm('/db/cases-by-population', 'post');
+        const b = addDropDown('country', data);
+        const c = addInput('submit', 'done');
+
+        a.appendChild(b);
+        a.appendChild(c);
+        document.body.appendChild(a);
+    };
+    request.send();
+}
+
 function ch5() {
     rmTrash();
 
     const x = document.createElement('p');
-    x.id = "t5c";
+    x.id = "cont";
     x.className = "result";
     x.appendChild(document.createTextNode('Pick a Date:'));
     document.body.appendChild(x);
