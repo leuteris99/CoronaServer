@@ -23,8 +23,6 @@ function createChart(data, country) {
     data.forEach(element => {
         cases[i++] = element['cases'];
     });
-	dateRep.reverse();
-	cases.reverse();
 
     // rendering the chart
     var ctx = document.getElementById('chart').getContext('2d');

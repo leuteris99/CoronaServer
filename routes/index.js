@@ -10,11 +10,15 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/cases-number-per-country', function (request, resource) {
-    resource.sendFile(path.join(curr,'/public/cases-number-per-country.html'));
+    resource.sendFile(path.join(curr, '/public/cases-number-per-country.html'));
 });
 
-router.get('/cases-number-per-time', function (request,resource) {
-    resource.sendFile(path.join(curr,'/public/cases-number-per-time.html'));
+router.get('/cases-number-per-time', function (request, resource) {
+    resource.sendFile(path.join(curr, '/public/cases-number-per-time.html'));
+});
+
+router.get('/top-5-cases', function (request, resource) {
+    resource.sendFile(path.join(curr, '/public/top5Cases.html'));
 });
 
 module.exports = router;
