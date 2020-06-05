@@ -23,7 +23,11 @@ function createChart(data, country) {
     data.forEach(element => {
         cases[i++] = element['cases'];
     });
-
+    let deaths = [];
+    i =0;
+    data.forEach(element => {
+        deaths[i++] = element['deaths'];
+    });
     // rendering the chart
     var ctx = document.getElementById('chart').getContext('2d');
     var mychart = new Chart(ctx, {
@@ -38,6 +42,16 @@ function createChart(data, country) {
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1,
+            },{
+                label: '# of deaths in ' + country,
+                data: deaths,
+                backgoundColor: [
+                    'rgba(99,255,211,0.2)'
+                ],
+                borderColor: [
+                    'rgb(99,255,187)'
                 ],
                 borderWidth: 1,
             }]
