@@ -158,13 +158,14 @@ module.exports = {
         });
     },
 	getCasesByPopulation: function (db, country, callback){
-		const sql = "select sum(cases), popData2018 from record where countriesAndTerritories == ?";
+		const sql = "select sum(cases) cases, popData2018 from record where countriesAndTerritories == ?";
 		const array = [];
-		db.all(sql, [country], (err, rows) => {
+		db.get(sql, [country], (err, rows) => {
             if (err) {
                 throw err;
             }
 			array[0] = {cases: rows.cases, popData2018: rows.popData2018};
+			console.log(array);
             callback(array);
         });
 	},

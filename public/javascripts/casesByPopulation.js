@@ -14,8 +14,8 @@ function createChart(data, country) {
     titleEl.textContent = "Cases And Population of " + country;
     // preparing the data for the chart
     
-    let cases = data.element['cases'];
-	let pop = data.element['popData2018'];
+    let cases = data[0]['cases'];
+	let pop = data.[0]['popData2018'];
     // rendering the chart
     var ctx = document.getElementById('chart').getContext('2d');
     var mychart = new Chart(ctx, {
