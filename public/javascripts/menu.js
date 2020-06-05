@@ -80,9 +80,9 @@ function ch3() {
     x.appendChild(document.createTextNode('Pick a Date:'));
     document.body.appendChild(x);
 
-    const a = addForm('/db', 'post');
-    const b = addInput('date', 'start date');
-    const c = addInput('date', 'end date');
+    const a = addForm('/db/top-5-cases', 'post');
+    const b = addInput('date', 'startDate');
+    const c = addInput('date', 'endDate');
     const d = addInput('submit', 'done');
 
     a.appendChild(addLabel("from:"))

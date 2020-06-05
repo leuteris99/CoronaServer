@@ -43,7 +43,7 @@ router.get("/cases-number-per-country/:country", function (request, resource) {
     }
 
     dbQueries.getCasesNumberPerCountry(db, country, fetch);
-})
+});
 
 router.post("/cases-number-per-time", function (request, resource) {
     const startDate = request.body.startDate;
@@ -72,5 +72,32 @@ router.get("/cases-number-per-time/:country&:startDate&:endDate", function (requ
     }
 
     dbQueries.getCasesNumberPerTime(db, startDate, endDate, country, fetch);
+});
+
+router.post("/top-5-cases", function (request, resource){
+    const startDate = request.body.startDate;
+    const endDate = request.body.endDate;
+
+    function fetch(array) {
+        if (array.length > 0) {
+            resource.redirect('../top-5-cases?startDate=' + startDate + '&endDate=' + endDate);
+        } else {
+            console.log('404: fetch top 5 cases');
+            resource.render('time-error',{title: "404 data not found"});
+        }
+    }
+
+    dbQueries.getTop5Cases(db, startDate, endDate, fetch);
+});
+
+router.get("/top-5-cases/:startDate&:endDate", function (request, resource){
+    const startDate = request.params.startDate;
+    const endDate = request.params.endDate;
+
+    function fetch(array) {
+        resource.send(array);
+    }
+
+    dbQueries.getTop5Cases(db, startDate, endDate, fetch);
 })
 module.exports = router;
