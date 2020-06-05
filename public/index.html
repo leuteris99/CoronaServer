@@ -8,17 +8,20 @@
     <script src="javascripts/menu.js"></script>
 </head>
 <body>
-    <h1>Info about Corona Virus</h1>
-    <form action="/db" method="post">
-        <input type="radio" id="CasesNumCountry" name="info" value="CasesNumCountry" oninput="ch1()" class="mdc-radio">
-        <label for="CasesNumCountry">Cases Number per Country</label><br>
+<h1>Info about Corona Virus</h1>
+<form action="/db" method="post">
+    <input type="radio" id="CasesNumCountry" name="info" value="CasesNumCountry" oninput="ch1()" class="mdc-radio">
+    <label for="CasesNumCountry">Cases Number per Country</label><br>
 
-        <input type="radio" id="CasesNumTime" name="info" value="CasesNumTime" oninput="ch2()" class="mdc-radio">
-        <label for="CasesNumTime">Cases Number based on Time</label><br>
+    <input type="radio" id="CasesNumTime" name="info" value="CasesNumTime" oninput="ch2()" class="mdc-radio">
+    <label for="CasesNumTime">Cases Number based on Time</label><br>
 
-        <input type="radio" id="Top5" name="info" value="Top5" oninput="ch3()" class="mdc-radio">
-        <label for="Top5">Top 5 Countries with the most cases</label><br>
-    </form>
+    <input type="radio" id="Top5" name="info" value="Top5" oninput="ch3()" class="mdc-radio">
+    <label for="Top5">Top 5 Countries with the most cases</label><br>
+
+    <input type="radio" id="Continents" name="info" value="Continents" oninput="ch5()" class="mdc-radio">
+    <label for="Continents">Cases per continent</label><br>
+</form>
 <!--    <form action="/db" method="post">-->
 <!--        <input type="text" name="first" class="mdc-text-field">-->
 <!--        <input type="text" name="last" class="mdc-text-field">-->

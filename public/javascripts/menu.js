@@ -72,7 +72,7 @@ function ch2() {
 }
 
 function ch3() {
-    rmTrash()
+    rmTrash();
 
     const x = document.createElement('p');
     x.id = "t5c";
@@ -81,6 +81,32 @@ function ch3() {
     document.body.appendChild(x);
 
     const a = addForm('/db/top-5-cases', 'post');
+    const b = addInput('date', 'startDate');
+    const c = addInput('date', 'endDate');
+    const d = addInput('submit', 'done');
+
+    a.appendChild(addLabel("from:"))
+    a.appendChild(goNextLine());
+    a.appendChild(b);
+    a.appendChild(goNextLine());
+    a.appendChild(addLabel("to:"))
+    a.appendChild(goNextLine());
+    a.appendChild(c);
+    a.appendChild(goNextLine());
+    a.appendChild(d);
+    document.body.appendChild(a);
+}
+
+function ch5() {
+    rmTrash();
+
+    const x = document.createElement('p');
+    x.id = "t5c";
+    x.className = "result";
+    x.appendChild(document.createTextNode('Pick a Date:'));
+    document.body.appendChild(x);
+
+    const a = addForm('/db/continents', 'post');
     const b = addInput('date', 'startDate');
     const c = addInput('date', 'endDate');
     const d = addInput('submit', 'done');

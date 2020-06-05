@@ -135,7 +135,6 @@ module.exports = {
         const sql = "select countriesAndTerritories, cases from (select countriesAndTerritories, sum(cases) cases from record where  day<= ? and day >= ? and month <= ? and month>= ? and year <= ? and year >= ? group by countriesAndTerritories order by sum(cases) desc limit 5) order by countriesAndTerritories";
         const array = [];
         let i = 0;
-        console.log(startDate);
         let srep = startDate;
         let smonth = srep.slice(5, 7);
         let sday = srep.slice(8, 10);
@@ -153,6 +152,32 @@ module.exports = {
                     country: row.countriesAndTerritories,
                     cases: row.cases
                 };
+            });
+            callback(array);
+        });
+    },
+    getContinents: function (db,startDate,endDate,callback){
+        const sql = "select continentExp, sum(cases) cases, sum(deaths) deaths from record where  day<= ? and day >= ? and month <= ? and month>= ? and year <= ? and year >= ? group by continentExp order by continentExp";
+        const array = [];
+        let i = 0;
+        let srep = startDate;
+        let smonth = srep.slice(5, 7);
+        let sday = srep.slice(8, 10);
+        let syear = srep.slice(0, 4);
+        let erep = endDate;
+        let emonth = erep.slice(5, 7);
+        let eday = erep.slice(8, 10);
+        let eyear = erep.slice(0, 4);
+        db.all(sql,[eday,sday,emonth,smonth,eyear,syear],(err,rows)=>{
+            if (err){
+                throw err;
+            }
+            rows.forEach(row =>{
+                array[i++] = {
+                    continentExp: row.continentExp,
+                    cases: row.cases,
+                    deaths: row.deaths
+                }
             });
             callback(array);
         });

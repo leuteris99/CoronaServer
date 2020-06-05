@@ -21,4 +21,8 @@ router.get('/top-5-cases', function (request, resource) {
     resource.sendFile(path.join(curr, '/public/top5Cases.html'));
 });
 
+router.get('/continents', function (request, resource) {
+    resource.sendFile(path.join(curr, '/public/continents.html'));
+});
+
 module.exports = router;
