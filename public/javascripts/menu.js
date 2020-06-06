@@ -1,5 +1,20 @@
 var countriesAndTerritories = [];
 
+function getCasesAndDeaths(){
+	let request = new XMLHttpRequest();
+	request.open('GET', "/db/get-cases-and-deaths");
+	request.responseType = 'text';
+	request.onload = function(){
+		const jsonData = JSON.parse(request.response);
+		const cases = jsonData[0].cases;
+		const deaths = jsonData[0].deaths;
+		
+		document.getElementById("cases").innerHTML = "Total Cases: " + cases;
+		document.getElementById("deaths").innerHTML = "Total Deaths: " + deaths;
+	};
+	request.send();
+}
+
 function ch1() {
     rmTrash()
 

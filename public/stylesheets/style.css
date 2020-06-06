@@ -1,6 +1,6 @@
 body {
   background-color: #F7D4D6;
-  font: normal 16px "Palatino Linotype", "Book Antiqua", Palation, serif
+  font: normal 16px "Palatino Linotype", "Book Antiqua", Palation, serif;
 }
 
 .container{
@@ -17,7 +17,41 @@ body {
 
 #queries{
 	float:left;
-	width: 30%;
+	width: 25%;
 	border-right: 1px black solid;
+	padding-bottom:28%;
 	text-transform:capitalize;
+}
+
+#main{
+	width: 73%;
+	text-align:center;
+	float:right;
+	padding:10px;
+}
+
+#main ul{
+	list-style:none;
+	padding-bottom:20px;
+}
+
+#main li{
+	display:inline;
+	padding:20px;
+	border:1px black solid;
+	background-color:black;
+	font-size: 20px;
+	color:white;
+}
+
+#main p{
+	padding-top:20px;
+}
+
+#footer{
+	text-align:center;
+	margin-top:20%;
+	border-top: 1px black solid;
+	height:1px;
+	box-sizing:border-box;
 }

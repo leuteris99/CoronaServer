@@ -89,6 +89,18 @@ module.exports = {
             callback(array);
         });
     },
+	getCasesAndDeaths: function(db, callback){
+		const sql = "select sum(cases) cases, sum(deaths) deaths from record";
+		const array = [];
+		db.get(sql, (err, rows) => {
+			if(err){
+				throw err;
+			}
+			array[0] = {cases: rows.cases, deaths: rows.deaths};
+            console.log(array);
+            callback(array);
+		})
+	},
     getCasesNumberPerCountry: function (db, countries, callback) {
         let sql = "select cases, deaths, dateRep from record where countriesAndTerritories == ?";
         let array = [];

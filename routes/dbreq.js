@@ -20,6 +20,14 @@ router.get('/get-countries', function (request, resource) {
     dbQueries.getCountries(db, fetch);
 })
 
+router.get('/get-cases-and-deaths', function(request, resource) {
+	function fetch(array){
+		resource.send(array);
+	}
+	
+	dbQueries.getCasesAndDeaths(db, fetch);
+})
+
 router.post("/cases-number-per-country", function (request, resource) {
     const countries = [];
         countries.push(request.body.country);
@@ -37,6 +45,7 @@ router.post("/cases-number-per-country", function (request, resource) {
     dbQueries.getCasesNumberPerCountry(db, countries, fetch);
 
 });
+
 router.get("/cases-number-per-country/:countries", function (request, resource) {
     const tmp = request.params.countries;
     let countries = tmp.split(',');
