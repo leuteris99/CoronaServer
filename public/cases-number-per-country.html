@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cases Numbers Per Country</title>
+    <link rel="icon" href="images/favicon.ico">
     <script src="javascripts/casesNumCountry.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 </head>
@@ -12,8 +13,9 @@
 <script>
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    console.log(urlParams.get('country'));
-    ch1(urlParams.get('country'));
+    const params = urlParams.get('countries');
+    let countries = params.split(',');
+    ch1(countries);
 </script>
 </body>
 </html>

@@ -21,28 +21,31 @@ router.get('/get-countries', function (request, resource) {
 })
 
 router.post("/cases-number-per-country", function (request, resource) {
-    const country = request.body.country;
+    const countries = [];
+        countries.push(request.body.country);
 
     function fetch(array) {
         console.log(array.length)
         if (array.length > 0) {
-            resource.redirect("../cases-number-per-country?country=" + country);
+            let url = "../cases-number-per-country?";
+            resource.redirect(url + "countries=" + countries);
         } else {
             console.log('404: fetch cases number per country');
         }
     }
 
-    dbQueries.getCasesNumberPerCountry(db, country, fetch);
+    dbQueries.getCasesNumberPerCountry(db, countries, fetch);
 
 });
-router.get("/cases-number-per-country/:country", function (request, resource) {
-    const country = request.params.country;
+router.get("/cases-number-per-country/:countries", function (request, resource) {
+    const tmp = request.params.countries;
+    let countries = tmp.split(',');
 
     function fetch(array) {
         resource.send(array);
     }
 
-    dbQueries.getCasesNumberPerCountry(db, country, fetch);
+    dbQueries.getCasesNumberPerCountry(db, countries, fetch);
 });
 
 router.post("/cases-number-per-time", function (request, resource) {
@@ -101,7 +104,7 @@ router.get("/top-5-cases/:startDate&:endDate", function (request, resource) {
     dbQueries.getTop5Cases(db, startDate, endDate, fetch);
 });
 
-router.post("/cases-by-population", function(request, resource){
+router.post("/cases-by-population", function (request, resource) {
     const country = request.body.country;
 
     function fetch(array) {

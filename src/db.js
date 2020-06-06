@@ -89,19 +89,27 @@ module.exports = {
             callback(array);
         });
     },
-    getCasesNumberPerCountry: function (db, country, callback) {
-        const sql = "select cases, deaths, dateRep from record where countriesAndTerritories == ?";
-        const array = [];
-        let i = 0;
-        db.all(sql, [country], (err, rows) => {
-            if (err) {
-                throw err;
-            }
-            rows.forEach(row => {
-                array[i++] = {cases: row.cases, deaths: row.deaths, dateRep: row.dateRep};
+    getCasesNumberPerCountry: function (db, countries, callback) {
+        let sql = "select cases, deaths, dateRep from record where countriesAndTerritories == ?";
+        let array = [];
+        countries.forEach((country, index) => {
+            const countryArray = [];
+            let i = 0;
+            db.all(sql, [country], (err, rows) => {
+                if (err) {
+                    throw err;
+                }
+                rows.forEach(row => {
+                    countryArray[i++] = {cases: row.cases, deaths: row.deaths, dateRep: row.dateRep};
+                });
+                array[index] = {country: country, data: countryArray};
+                if (index === countries.length - 1) {
+                    callback(array);
+                }
             });
-            callback(array);
         });
+
+
     },
     getCasesNumberPerTime: function (db, startDate, endDate, country, callback) {
         const sql = "select cases, deaths, dateRep from record where  day<= ? and day >= ? and month <= ? and month>= ? and year <= ? and year >= ? and countriesAndTerritories == ?";

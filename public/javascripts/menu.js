@@ -1,3 +1,5 @@
+var countriesAndTerritories = [];
+
 function ch1() {
     rmTrash()
 
@@ -12,18 +14,20 @@ function ch1() {
     request.responseType = 'text';
     request.onload = function () {
         const jsonData = JSON.parse(request.response);
-        let data = [];
+
         let i = 0;
         jsonData.forEach(element => {
-            data[i++] = element['countriesAndTerritories'];
+            countriesAndTerritories[i++] = element['countriesAndTerritories'];
         });
         const a = addForm('/db/cases-number-per-country', 'post');
-        const b = addDropDown('country', data);
+        const b = addDropDown('country', countriesAndTerritories);
         const c = addInput('submit', 'done');
+        const d = addButton('add Country', 'addCountryDropDown()');
 
         a.appendChild(b);
         a.appendChild(c);
         document.body.appendChild(a);
+        document.body.appendChild(d);
     };
     request.send();
 }
@@ -97,7 +101,7 @@ function ch3() {
     document.body.appendChild(a);
 }
 
-function ch4(){
+function ch4() {
     rmTrash();
 
     const x = document.createElement('p');
@@ -156,7 +160,8 @@ function ch5() {
 function addForm(action, method) {
     const x = document.createElement('form');
     x.setAttribute('action', action);
-    x.setAttribute('method', method)
+    x.setAttribute('method', method);
+    x.id = 'countryForm';
     x.className = 'result';
     return x;
 }
@@ -176,6 +181,30 @@ function addLabel(text) {
     return x;
 }
 
+function addButton(title, onclick) {
+    const x = document.createElement('button');
+    x.className = 'result';
+    x.setAttribute('onclick', onclick);
+    x.appendChild(document.createTextNode(title));
+    return x;
+}
+
+function addCountryDropDown() {
+    let e = document.getElementsByClassName('dropdown');
+    for (let i = e.length - 1; i >= 0; i--) {
+        if (e.item(i).options[e[i].selectedIndex].value !== 'null') {
+            let country = e[i].options[e[i].selectedIndex].value;
+            const index = countriesAndTerritories.indexOf(country);
+            if (index > -1) {
+                countriesAndTerritories.splice(index, 1);
+            }
+        }
+    }
+    const x =document.getElementById('countryForm');
+    x.appendChild(goNextLine());
+    x.appendChild(addDropDown('country', countriesAndTerritories));
+}
+
 function goNextLine() {
     return document.createElement('br');
 }
@@ -183,7 +212,7 @@ function goNextLine() {
 function addDropDown(name, optionArray) {
     const a = document.createElement('select');
     a.setAttribute('name', name);
-    a.className = 'result';
+    a.className = 'result dropdown';
 
     const b = document.createElement('option');
     b.setAttribute('value', 'null');
@@ -203,7 +232,6 @@ function addDropDown(name, optionArray) {
 
 function rmTrash() {
     const y = document.getElementsByClassName("result");
-    console.log(y.length);
     for (let i = y.length - 1; i >= 0; i--) {
         y.item(i).remove();
     }
