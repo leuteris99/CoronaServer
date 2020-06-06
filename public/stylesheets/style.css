@@ -1,8 +1,23 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #F7D4D6;
+  font: normal 16px "Palatino Linotype", "Book Antiqua", Palation, serif
 }
 
-a {
-  color: #00B7FF;
+.container{
+	width: 80%;
+	margin:auto;
+	overflow:hidden;
+}
+
+#header{
+	background-color: #1258DC;
+	color: white;
+	text-align:center;
+}
+
+#queries{
+	float:left;
+	width: 30%;
+	border-right: 1px black solid;
+	text-transform:capitalize;
 }

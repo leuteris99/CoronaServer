@@ -1,64 +1,42 @@
-function ch1(country) {
+function ch1(countries) {
     let request = new XMLHttpRequest();
-    request.open('GET', '/db/cases-number-per-country/' + country);
+    request.open('GET', '/db/cases-number-per-country/' + countries);
     request.responseType = 'text';
     request.onload = function () {
         console.log(request.response);
-        createChart(JSON.parse(request.response), country);
+        createChart(JSON.parse(request.response), countries);
     };
     request.send();
 }
 
-function createChart(data, country) {
+function createChart(data, countries) {
     let titleEl = document.getElementById('title');
-    titleEl.textContent = "Daily new Cases in " + country;
+    let countriesNames = "";
+    countries.forEach((country, index) => {
+        if (index !== 0) {
+            countriesNames += " and ";
+        }
+        countriesNames += country;
+    });
+    titleEl.textContent = "Daily new Cases in " + countriesNames;
     // preparing the data for the chart
     let dateRep = [];
     let i = 0;
-    data.forEach(element => {
+    data[0]['data'].forEach(element => {
         dateRep[i++] = element['dateRep'];
     });
-    let cases = [];
-    i = 0;
-    data.forEach(element => {
-        cases[i++] = element['cases'];
-    });
-    let deaths = [];
-    i = 0;
-    data.forEach(element => {
-        deaths[i++] = element['deaths'];
-    });
+
     // rendering the chart
     var ctx = document.getElementById('chart').getContext('2d');
     var mychart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: dateRep,
-            datasets: [{
-                label: '# of cases in ' + country,
-                data: cases,
-                backgoundColor: [
-                    'rgba(255, 99, 132, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)'
-                ],
-                borderWidth: 1,
-            }, {
-                label: '# of deaths in ' + country,
-                data: deaths,
-                backgoundColor: [
-                    'rgba(99,255,255,0.2)'
-                ],
-                borderColor: [
-                    'rgb(99,255,232)'
-                ],
-                borderWidth: 1,
-            }]
+            datasets: []
         },
         options: {
             scales: {
-                yaxis: [{
+                yAxis: [{
                     ticks: {
                         beginAtZero: true
                     }
@@ -66,4 +44,51 @@ function createChart(data, country) {
             }
         }
     });
+
+    let dynamicColors = function (a) {
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+    };
+    let cases = [];
+    let deaths = [];
+    data.forEach((countEl) => {
+        cases = [];
+        deaths = [];
+        countEl['data'].forEach((dataEl, index) => {
+            cases[index] = dataEl['cases'];
+        });
+        let newCasesDataSet = {
+                label: '# of cases in ' + countEl['country'],
+                data: cases,
+                backgroundColor: [
+                    dynamicColors(0.2)
+                ],
+                borderColor: [
+                    dynamicColors(1)
+                ],
+                borderWidth: 1,
+            },
+            i = 0;
+        countEl['data'].forEach((dataEl, index) => {
+            deaths[index] = dataEl['deaths'];
+        });
+        let newDeathDataSet = {
+            label: '# of deaths in ' + countEl['country'],
+            data: deaths,
+            backgroundColor: [
+                dynamicColors(0.2)
+            ],
+            borderColor: [
+                dynamicColors(1)
+            ],
+            borderWidth: 1,
+        }
+        mychart.data.datasets.push(newCasesDataSet);
+        mychart.update();
+        mychart.data.datasets.push(newDeathDataSet);
+        mychart.update();
+    });
+
 }

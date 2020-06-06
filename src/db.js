@@ -89,19 +89,27 @@ module.exports = {
             callback(array);
         });
     },
-    getCasesNumberPerCountry: function (db, country, callback) {
-        const sql = "select cases, deaths, dateRep from record where countriesAndTerritories == ?";
-        const array = [];
-        let i = 0;
-        db.all(sql, [country], (err, rows) => {
-            if (err) {
-                throw err;
-            }
-            rows.forEach(row => {
-                array[i++] = {cases: row.cases, deaths: row.deaths, dateRep: row.dateRep};
+    getCasesNumberPerCountry: function (db, countries, callback) {
+        let sql = "select cases, deaths, dateRep from record where countriesAndTerritories == ?";
+        let array = [];
+        countries.forEach((country, index) => {
+            const countryArray = [];
+            let i = 0;
+            db.all(sql, [country], (err, rows) => {
+                if (err) {
+                    throw err;
+                }
+                rows.forEach(row => {
+                    countryArray[i++] = {cases: row.cases, deaths: row.deaths, dateRep: row.dateRep};
+                });
+                array[index] = {country: country, data: countryArray};
+                if (index === countries.length - 1) {
+                    callback(array);
+                }
             });
-            callback(array);
         });
+
+
     },
     getCasesNumberPerTime: function (db, startDate, endDate, country, callback) {
         const sql = "select cases, deaths, dateRep from record where  day<= ? and day >= ? and month <= ? and month>= ? and year <= ? and year >= ? and countriesAndTerritories == ?";
@@ -135,7 +143,6 @@ module.exports = {
         const sql = "select countriesAndTerritories, cases from (select countriesAndTerritories, sum(cases) cases from record where  day<= ? and day >= ? and month <= ? and month>= ? and year <= ? and year >= ? group by countriesAndTerritories order by sum(cases) desc limit 5) order by countriesAndTerritories";
         const array = [];
         let i = 0;
-        console.log(startDate);
         let srep = startDate;
         let smonth = srep.slice(5, 7);
         let sday = srep.slice(8, 10);
@@ -157,18 +164,44 @@ module.exports = {
             callback(array);
         });
     },
-	getCasesByPopulation: function (db, country, callback){
-		const sql = "select sum(cases) cases, popData2018 from record where countriesAndTerritories == ?";
-		const array = [];
-		db.get(sql, [country], (err, rows) => {
+    getCasesByPopulation: function (db, country, callback) {
+        const sql = "select sum(cases) cases, popData2018 from record where countriesAndTerritories == ?";
+        const array = [];
+        db.get(sql, [country], (err, rows) => {
             if (err) {
                 throw err;
             }
-			array[0] = {cases: rows.cases, popData2018: rows.popData2018};
-			console.log(array);
+            array[0] = {cases: rows.cases, popData2018: rows.popData2018};
+            console.log(array);
             callback(array);
         });
-	},
+    },
+    getContinents: function (db, startDate, endDate, callback) {
+        const sql = "select continentExp, sum(cases) cases, sum(deaths) deaths from record where  day<= ? and day >= ? and month <= ? and month>= ? and year <= ? and year >= ? group by continentExp order by continentExp";
+        const array = [];
+        let i = 0;
+        let srep = startDate;
+        let smonth = srep.slice(5, 7);
+        let sday = srep.slice(8, 10);
+        let syear = srep.slice(0, 4);
+        let erep = endDate;
+        let emonth = erep.slice(5, 7);
+        let eday = erep.slice(8, 10);
+        let eyear = erep.slice(0, 4);
+        db.all(sql, [eday, sday, emonth, smonth, eyear, syear], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach(row => {
+                array[i++] = {
+                    continentExp: row.continentExp,
+                    cases: row.cases,
+                    deaths: row.deaths
+                }
+            });
+            callback(array);
+        });
+    },
     closeConnection: function (db) {
         db.close((err) => {
             if (err) {
