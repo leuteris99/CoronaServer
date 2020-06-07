@@ -1,57 +1,63 @@
 body {
-  background-color: #F7D4D6;
-  font: normal 16px "Palatino Linotype", "Book Antiqua", Palation, serif;
+    background-color: lightgrey;
+    background-image: url("../images/bg_grey.jpg");
+    background-size: cover;
+    font: normal 16px "Palatino Linotype", "Book Antiqua", Palation, serif;
 }
 
-.container{
-  width: 80%;
-  margin:auto;
-  overflow:hidden;
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
 }
 
-#header{
-  background-color: #1258DC;
-  color: white;
-  text-align:center;
+#header {
+    background-color: #1258DC;
+    background-image: url("../images/Covid-19_image.jpg");
+    background-size: 25%;
+    color: white;
+    text-align: center;
+    height: 25%;
 }
 
-#queries{
-  float:left;
-  width: 25%;
-  border-right: 1px black solid;
-  padding-bottom:28%;
-  text-transform:capitalize;
+#queries {
+    float: left;
+    width: 25%;
+    border-right: 1px black solid;
+    padding-bottom: 28%;
+    text-transform: capitalize;
 }
 
-#main{
-  width: 73%;
-  text-align:center;
-  float:right;
-  padding:10px;
+#main {
+    width: 73%;
+    text-align: center;
+    float: right;
+    padding: 10px;
 }
 
-#main ul{
-  list-style:none;
-  padding-bottom:20px;
+#main ul {
+    list-style: none;
+    padding-bottom: 20px;
 }
 
-#main li{
-  display:inline;
-  padding:20px;
-  border:1px black solid;
-  background-color:black;
-  font-size: 20px;
-  color:white;
+#main li {
+    display: inline;
+    padding: 20px;
+    border: 1px black solid;
+    background-color: black;
+    font-size: 22px;
+    color: white;
 }
 
-#main p{
-  padding-top:20px;
+#main p {
+    padding-top: 20px;
+    font: 16px "Lucinda Sans  Unicode", "Lucinda Grande", sans-serif;
+    line-height: 1.6em;
 }
 
-#footer{
-  text-align:center;
-  margin-top:20%;
-  border-top: 1px black solid;
-  height:1px;
-  box-sizing:border-box;
+#footer {
+    text-align: center;
+    border-top: 1px black solid;
+    height: 1px;
+    box-sizing: border-box;
 }

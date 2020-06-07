@@ -1,4 +1,4 @@
-function ch1(startDate,endDate) {
+function ch1(startDate, endDate) {
     let request = new XMLHttpRequest();
     request.open('GET', '/db/continents/' + startDate + '&' + endDate);
     request.responseType = 'text';
@@ -14,17 +14,17 @@ function createChart(data) {
     titleEl.textContent = "Cases per Continent ";
     // preparing the data for the chart
     let continents = [];
-    let i =0;
+    let i = 0;
     data.forEach(element => {
         continents[i++] = element['continentExp'];
     });
     let cases = [];
-    i =0;
+    i = 0;
     data.forEach(element => {
         cases[i++] = element['cases'];
     });
     let deaths = [];
-    i =0;
+    i = 0;
     data.forEach(element => {
         deaths[i++] = element['deaths'];
     });
@@ -59,7 +59,7 @@ function createChart(data) {
                     'rgb(98,253,241)',
                     'rgb(98,253,241)',
                 ],
-            },{
+            }, {
                 label: '# deaths ',
                 data: deaths,
                 backgroundColor: [

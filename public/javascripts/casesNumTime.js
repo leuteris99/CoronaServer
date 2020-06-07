@@ -1,4 +1,4 @@
-function ch1(country,startDate,endDate) {
+function ch1(country, startDate, endDate) {
     let request = new XMLHttpRequest();
     request.open('GET', '/db/cases-number-per-time/' + country + '&' + startDate + '&' + endDate);
     request.responseType = 'text';
@@ -14,17 +14,17 @@ function createChart(data, country) {
     titleEl.textContent = "Cases in " + country;
     // preparing the data for the chart
     let dateRep = [];
-    let i =0;
+    let i = 0;
     data.forEach(element => {
         dateRep[i++] = element['dateRep'];
     });
     let cases = [];
-    i =0;
+    i = 0;
     data.forEach(element => {
         cases[i++] = element['cases'];
     });
     let deaths = [];
-    i =0;
+    i = 0;
     data.forEach(element => {
         deaths[i++] = element['deaths'];
     });
@@ -44,7 +44,7 @@ function createChart(data, country) {
                     'rgba(255, 99, 132, 1)'
                 ],
                 borderWidth: 1,
-            },{
+            }, {
                 label: '# of deaths in ' + country,
                 data: deaths,
                 backgroundColor: [

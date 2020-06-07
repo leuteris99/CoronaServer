@@ -1,10 +1,10 @@
 var countriesAndTerritories = [];
 
-function getCasesAndDeaths(){
+function getCasesAndDeaths() {
     let request = new XMLHttpRequest();
     request.open('GET', "/db/get-cases-and-deaths");
     request.responseType = 'text';
-    request.onload = function(){
+    request.onload = function () {
         const jsonData = JSON.parse(request.response);
         const cases = jsonData[0].cases;
         const deaths = jsonData[0].deaths;
@@ -217,7 +217,7 @@ function addCountryDropDown() {
             }
         }
     }
-    const x =document.getElementById('countryForm');
+    const x = document.getElementById('countryForm');
     x.appendChild(goNextLine());
     x.appendChild(addDropDown('country', countriesAndTerritories));
 }

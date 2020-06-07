@@ -1,4 +1,4 @@
-function ch1(startDate,endDate) {
+function ch1(startDate, endDate) {
     let request = new XMLHttpRequest();
     request.open('GET', '/db/top-5-cases/' + startDate + '&' + endDate);
     request.responseType = 'text';
@@ -15,12 +15,12 @@ function createChart(data) {
     // preparing the data for the chart
 
     let country = [];
-    let i =0;
+    let i = 0;
     data.forEach(element => {
         country[i++] = element['country'];
     });
     let cases = [];
-    i =0;
+    i = 0;
     data.forEach(element => {
         cases[i++] = element['cases'];
     });

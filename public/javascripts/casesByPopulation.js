@@ -26,7 +26,7 @@ function createChart(data, country) {
             labels: ['Cases', 'Population'],
             datasets: [{
                 label: 'Cases in ' + country,
-                data: [cases,pop],
+                data: [cases, pop],
                 backgroundColor: [
                     'rgb(255,99,132)',
                     'rgba(99,224,255,0.2)'
@@ -46,7 +46,7 @@ function createChart(data, country) {
             },
             title: {
                 display: true,
-                text: ((cases*100)/pop) + '% of population affected.'
+                text: ((cases * 100) / pop) + '% of population affected.'
             },
             animation: {
                 animateScale: true,
