@@ -84,6 +84,8 @@ router.post("/cases-number-per-time", function (request, resource) {
         } else {
             if (country === 'null') {
                 resource.render('country-error', {title: '500 country is not selected'});
+            } else if (startDate > endDate) {
+                resource.render('reverse-time-error', {title: '500 dates data error'})
             } else {
                 console.log('404: fetch cases number per time');
                 resource.render('time-error', {title: "404 data not found"});
@@ -113,6 +115,8 @@ router.post("/top-5-cases", function (request, resource) {
     function fetch(array) {
         if (array.length > 0) {
             resource.redirect('../top-5-cases?startDate=' + startDate + '&endDate=' + endDate);
+        } else if (startDate > endDate) {
+            resource.render('reverse-time-error', {title: '500 dates data error'})
         } else {
             console.log('404: fetch top 5 cases');
             resource.render('time-error', {title: "404 data not found"});
@@ -168,6 +172,8 @@ router.post("/continents", function (request, resource) {
     function fetch(array) {
         if (array.length > 0) {
             resource.redirect('../continents?startDate=' + startDate + '&endDate=' + endDate);
+        } else if (startDate > endDate) {
+            resource.render('reverse-time-error', {title: '500 dates data error'})
         } else {
             console.log('404: fetch continents');
             resource.render('time-error', {title: "404 data not found"});

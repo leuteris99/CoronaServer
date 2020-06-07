@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>COVID-19 International Info</title>
     <link rel="icon" href="images/favicon.ico">
-    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <script src="javascripts/menu.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 </head>
@@ -20,19 +18,19 @@
 <aside id="queries">
     <form action="/db" method="post">
 
-        <input type="radio" id="CasesNumCountry" name="info" value="CasesNumCountry" oninput="ch1()" class="mdc-radio">
+        <input type="radio" id="CasesNumCountry" name="info" value="CasesNumCountry" oninput="ch1()">
         <label for="CasesNumCountry">Cases Number per Country</label><br>
 
-        <input type="radio" id="CasesNumTime" name="info" value="CasesNumTime" oninput="ch2()" class="mdc-radio">
+        <input type="radio" id="CasesNumTime" name="info" value="CasesNumTime" oninput="ch2()">
         <label for="CasesNumTime">Cases Number based on Time</label><br>
 
-        <input type="radio" id="Top5" name="info" value="Top5" oninput="ch3()" class="mdc-radio">
+        <input type="radio" id="Top5" name="info" value="Top5" oninput="ch3()" >
         <label for="Top5">Top 5 Countries with the most cases</label><br>
 
-        <input type="radio" id="CasesByPopulation" name="info" value="CasesByPopulation" oninput="ch4()" class="mdc-radio">
+        <input type="radio" id="CasesByPopulation" name="info" value="CasesByPopulation" oninput="ch4()">
         <label for="CasesByPopulation">Country Cases compared to its population</label><br>
 
-        <input type="radio" id="Continents" name="info" value="Continents" oninput="ch5()" class="mdc-radio">
+        <input type="radio" id="Continents" name="info" value="Continents" oninput="ch5()">
         <label for="Continents">Cases per continent</label><br>
     </form>
 </aside>

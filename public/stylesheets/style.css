@@ -1,5 +1,7 @@
 body {
 	background-color: lightgrey;
+	background-image: url("../images/bg_grey.jpg");
+	background-size:cover;
 	font: normal 16px "Palatino Linotype", "Book Antiqua", Palation, serif;
 }
 
@@ -42,16 +44,17 @@ body {
 	padding:20px;
 	border:1px black solid;
 	background-color:black;
-	font-size: 20px;
+	font-size: 22px;
 	color:white;
 }
 
 #main p{
 	padding-top:20px;
+	font: 16px "Lucinda Sans  Unicode", "Lucinda Grande", sans-serif;
+	line-height:1.6em;
 }
 
 #footer{
 	text-align:center;
-	margin-top:20%;
 	height:1px;
 }
