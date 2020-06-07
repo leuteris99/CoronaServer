@@ -1,5 +1,20 @@
 var countriesAndTerritories = [];
 
+function getCasesAndDeaths(){
+    let request = new XMLHttpRequest();
+    request.open('GET', "/db/get-cases-and-deaths");
+    request.responseType = 'text';
+    request.onload = function(){
+        const jsonData = JSON.parse(request.response);
+        const cases = jsonData[0].cases;
+        const deaths = jsonData[0].deaths;
+
+        document.getElementById("cases").innerHTML = "Total Cases: " + cases;
+        document.getElementById("deaths").innerHTML = "Total Deaths: " + deaths;
+    };
+    request.send();
+}
+
 function ch1() {
     rmTrash()
 
@@ -7,7 +22,7 @@ function ch1() {
     x.id = "cnc";
     x.className = "result";
     x.appendChild(document.createTextNode('Pick a Country:'));
-    document.body.appendChild(x);
+    document.getElementById("queries").appendChild(x);
 
     let request = new XMLHttpRequest();
     request.open('GET', "/db/get-countries");
@@ -22,12 +37,14 @@ function ch1() {
         const a = addForm('/db/cases-number-per-country', 'post');
         const b = addDropDown('country', countriesAndTerritories);
         const c = addInput('submit', 'done');
-        const d = addButton('add Country', 'addCountryDropDown()');
+        const d = addButton('Add Country', 'addCountryDropDown()');
 
         a.appendChild(b);
         a.appendChild(c);
-        document.body.appendChild(a);
-        document.body.appendChild(d);
+
+        document.getElementById("queries").appendChild(a);
+        document.getElementById("queries").appendChild(d);
+
     };
     request.send();
 }
@@ -39,7 +56,7 @@ function ch2() {
     x.id = "cnt";
     x.className = "result";
     x.appendChild(document.createTextNode('Pick a date:'));
-    document.body.appendChild(x);
+    document.getElementById("queries").appendChild(x);
 
     let request = new XMLHttpRequest();
     request.open('GET', '/db/get-countries');
@@ -70,7 +87,7 @@ function ch2() {
         a.appendChild(c);
         a.appendChild(goNextLine());
         a.appendChild(d);
-        document.body.appendChild(a);
+        document.getElementById("queries").appendChild(a);
     };
     request.send();
 }
@@ -82,7 +99,7 @@ function ch3() {
     x.id = "t5c";
     x.className = "result";
     x.appendChild(document.createTextNode('Pick a Date:'));
-    document.body.appendChild(x);
+    document.getElementById("queries").appendChild(x);
 
     const a = addForm('/db/top-5-cases', 'post');
     const b = addInput('date', 'startDate');
@@ -98,7 +115,7 @@ function ch3() {
     a.appendChild(c);
     a.appendChild(goNextLine());
     a.appendChild(d);
-    document.body.appendChild(a);
+    document.getElementById("queries").appendChild(a);
 }
 
 function ch4() {
@@ -108,7 +125,7 @@ function ch4() {
     x.id = "cbp";
     x.className = "result";
     x.appendChild(document.createTextNode('Pick a Country:'));
-    document.body.appendChild(x);
+    document.getElementById("queries").appendChild(x);
 
     let request = new XMLHttpRequest();
     request.open('GET', "/db/get-countries");
@@ -126,7 +143,7 @@ function ch4() {
 
         a.appendChild(b);
         a.appendChild(c);
-        document.body.appendChild(a);
+        document.getElementById("queries").appendChild(a);
     };
     request.send();
 }
@@ -138,7 +155,7 @@ function ch5() {
     x.id = "cont";
     x.className = "result";
     x.appendChild(document.createTextNode('Pick a Date:'));
-    document.body.appendChild(x);
+    document.getElementById("queries").appendChild(x);
 
     const a = addForm('/db/continents', 'post');
     const b = addInput('date', 'startDate');
@@ -154,7 +171,7 @@ function ch5() {
     a.appendChild(c);
     a.appendChild(goNextLine());
     a.appendChild(d);
-    document.body.appendChild(a);
+    document.getElementById("queries").appendChild(a);
 }
 
 function addForm(action, method) {

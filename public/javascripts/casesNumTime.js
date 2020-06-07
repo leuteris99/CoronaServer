@@ -37,7 +37,7 @@ function createChart(data, country) {
             datasets: [{
                 label: '# of cases in ' + country,
                 data: cases,
-                backgoundColor: [
+                backgroundColor: [
                     'rgba(255, 99, 132, 0.2)'
                 ],
                 borderColor: [
@@ -47,7 +47,7 @@ function createChart(data, country) {
             },{
                 label: '# of deaths in ' + country,
                 data: deaths,
-                backgoundColor: [
+                backgroundColor: [
                     'rgba(99,255,211,0.2)'
                 ],
                 borderColor: [

@@ -20,23 +20,48 @@ router.get('/get-countries', function (request, resource) {
     dbQueries.getCountries(db, fetch);
 })
 
+router.get('/get-cases-and-deaths', function (request, resource) {
+    function fetch(array) {
+        resource.send(array);
+    }
+
+    dbQueries.getCasesAndDeaths(db, fetch);
+})
+
 router.post("/cases-number-per-country", function (request, resource) {
     const countries = [];
-        countries.push(request.body.country);
+    countries.push(request.body.country);
+
+    let t = false;
+    try {
+        countries[0].forEach(country => {
+            if (country === 'null') {
+                t = true;
+            }
+        });
+    } catch (e) {
+        if (countries[0] === 'null') {
+            t = true;
+        }
+    }
 
     function fetch(array) {
-        console.log(array.length)
-        if (array.length > 0) {
+        if (array.length > 0 && !t) {
             let url = "../cases-number-per-country?";
             resource.redirect(url + "countries=" + countries);
         } else {
-            console.log('404: fetch cases number per country');
+            if (t) {
+                resource.render('country-error', {title: '500 country is not selected'});
+            } else {
+                console.log('404: fetch cases number per country');
+            }
         }
     }
 
     dbQueries.getCasesNumberPerCountry(db, countries, fetch);
 
 });
+
 router.get("/cases-number-per-country/:countries", function (request, resource) {
     const tmp = request.params.countries;
     let countries = tmp.split(',');
@@ -54,11 +79,15 @@ router.post("/cases-number-per-time", function (request, resource) {
     const country = request.body.country;
 
     function fetch(array) {
-        if (array.length > 0) {
+        if (array.length > 0 && country !== 'null') {
             resource.redirect('../cases-number-per-time?country=' + country + '&startDate=' + startDate + '&endDate=' + endDate);
         } else {
-            console.log('404: fetch cases number per time');
-            resource.render('time-error', {title: "404 data not found"});
+            if (country === 'null') {
+                resource.render('country-error', {title: '500 country is not selected'});
+            } else {
+                console.log('404: fetch cases number per time');
+                resource.render('time-error', {title: "404 data not found"});
+            }
         }
     }
 
@@ -108,11 +137,14 @@ router.post("/cases-by-population", function (request, resource) {
     const country = request.body.country;
 
     function fetch(array) {
-        console.log(array.length)
-        if (array.length > 0) {
+        if (array.length > 0 && country !== 'null') {
             resource.redirect("../cases-by-population?country=" + country);
         } else {
-            console.log('404: fetch cases by population');
+            if (country === 'null') {
+                resource.render('country-error', {title: '500 country is not selected'});
+            } else {
+                console.log('404: fetch cases by population');
+            }
         }
     }
 
@@ -138,6 +170,7 @@ router.post("/continents", function (request, resource) {
             resource.redirect('../continents?startDate=' + startDate + '&endDate=' + endDate);
         } else {
             console.log('404: fetch continents');
+            resource.render('time-error', {title: "404 data not found"});
         }
     }
 

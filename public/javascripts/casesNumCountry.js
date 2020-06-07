@@ -3,7 +3,6 @@ function ch1(countries) {
     request.open('GET', '/db/cases-number-per-country/' + countries);
     request.responseType = 'text';
     request.onload = function () {
-        console.log(request.response);
         createChart(JSON.parse(request.response), countries);
     };
     request.send();

@@ -44,6 +44,7 @@ const sqlite3 = require("sqlite3").verbose();
 const dbQueries = require("./src/db");
 
 let db = dbQueries.openCreateConnection(sqlite3);
+console.log('Setting Up the database, please wait(it may take a minute).');
 
 const https = require("https");
 
@@ -58,8 +59,7 @@ https.get('https://opendata.ecdc.europa.eu/covid19/casedistribution/json/', (res
     resp.on('end', () => {
         const jsonData = JSON.parse(data);
         const recordsCount = Object.keys(jsonData["records"]).length;
-        console.log("records count : " + recordsCount);
-        console.log(jsonData["records"][1]);
+        console.log("records inserted : " + recordsCount);
         dbQueries.RefreshDB(db, jsonData);
     });
 }).on('error', (err) => {
