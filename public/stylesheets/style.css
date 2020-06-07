@@ -1,6 +1,6 @@
 body {
-  background-color: #F7D4D6;
-  font: normal 16px "Palatino Linotype", "Book Antiqua", Palation, serif;
+	background-color: lightgrey;
+	font: normal 16px "Palatino Linotype", "Book Antiqua", Palation, serif;
 }
 
 .container{
@@ -10,9 +10,11 @@ body {
 }
 
 #header{
-	background-color: #1258DC;
+	background-image: url("../images/Covid-19_image.jpg" );
+	background-size:25%;
 	color: white;
 	text-align:center;
+	height:25%;
 }
 
 #queries{
@@ -51,7 +53,5 @@ body {
 #footer{
 	text-align:center;
 	margin-top:20%;
-	border-top: 1px black solid;
 	height:1px;
-	box-sizing:border-box;
 }

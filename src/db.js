@@ -10,7 +10,6 @@ module.exports = {
             if (err) {
                 return console.error(err.message);
             }
-            console.log('Connected to database.');
         });
         return db;
     },
@@ -19,7 +18,6 @@ module.exports = {
             if (err) {
                 return console.error(err.message);
             }
-            console.log('Connected to database.');
         });
         return db;
     },
@@ -28,7 +26,6 @@ module.exports = {
             if (err) {
                 return console.error(err.message);
             }
-            console.log('Connected to database.');
         });
         return db;
     },
@@ -49,11 +46,9 @@ module.exports = {
                     if (err) {
                         return console.error(err.message);
                     }
-                    console.log('Table record created.');
                 });
 
                 const recordsCount = Object.keys(jsonData["records"]).length;
-                // console.log(jsonData['records']);
                 for (let i = 0; i < recordsCount; i++) {
                     db.run("insert into record values (?,?,?,?,?,?,?,?,?,?,?)",
                         [jsonData['records'][i]['dateRep'], jsonData['records'][i]['day'], jsonData['records'][i]['month'], jsonData['records'][i]['year'], jsonData['records'][i]['cases'], jsonData['records'][i]['deaths'],
@@ -64,12 +59,11 @@ module.exports = {
                             }
                         });
                 }
-                console.log("data inserted to db!");
                 db.close((err) => {
                     if (err) {
                         return console.error(err.message);
                     }
-                    console.log('Close the database connection.');
+                    console.log('Database setup complete.');
                 });
             });
 
@@ -89,18 +83,17 @@ module.exports = {
             callback(array);
         });
     },
-	getCasesAndDeaths: function(db, callback){
-		const sql = "select sum(cases) cases, sum(deaths) deaths from record";
-		const array = [];
-		db.get(sql, (err, rows) => {
-			if(err){
-				throw err;
-			}
-			array[0] = {cases: rows.cases, deaths: rows.deaths};
-            console.log(array);
+    getCasesAndDeaths: function (db, callback) {
+        const sql = "select sum(cases) cases, sum(deaths) deaths from record";
+        const array = [];
+        db.get(sql, (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            array[0] = {cases: rows.cases, deaths: rows.deaths};
             callback(array);
-		})
-	},
+        })
+    },
     getCasesNumberPerCountry: function (db, countries, callback) {
         let sql = "select cases, deaths, dateRep from record where countriesAndTerritories == ?";
         let array = [];
@@ -127,7 +120,6 @@ module.exports = {
         const sql = "select cases, deaths, dateRep from record where  day<= ? and day >= ? and month <= ? and month>= ? and year <= ? and year >= ? and countriesAndTerritories == ?";
         const array = [];
         let i = 0;
-        console.log(startDate);
         let srep = startDate;
         let smonth = srep.slice(5, 7);
         let sday = srep.slice(8, 10);
@@ -184,7 +176,6 @@ module.exports = {
                 throw err;
             }
             array[0] = {cases: rows.cases, popData2018: rows.popData2018};
-            console.log(array);
             callback(array);
         });
     },
@@ -219,9 +210,6 @@ module.exports = {
             if (err) {
                 return console.error(err.message);
             }
-            console.log('Close the database connection.');
         });
     }
 }
-
-
